@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+20.times do 
+  User.create(name: Faker::Name.name)
+end
+
+user_ids = User.pluck(:id)
+User.all.each do |user|
+  following_ids = (user_ids - [user.id]).sample(10)
+  following_ids.each do |id|
+    Relationship.create(follower_id: user.id, followed_id: id)
+  end
+end

@@ -10,6 +10,8 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :clock_ins
+
   # Follow a user
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)

@@ -1,0 +1,18 @@
+meta {
+  name: Clock-out
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3000/users/1/clock-out
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "clock_in_id": 1, 
+   "clock_out_time": "25/11/2024 17:28:03"
+  }
+}

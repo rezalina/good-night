@@ -12,9 +12,22 @@
 end
 
 user_ids = User.pluck(:id)
-User.all.each do |user|
+User.find_each do |user|
   following_ids = (user_ids - [user.id]).sample(10)
   following_ids.each do |id|
-    Relationship.create(follower_id: user.id, followed_id: id)
+    Relationship.create!(follower_id: user.id, followed_id: id)
+  end
+end
+
+User.find_each do |user|
+  5.times do
+    clock_in_time = Faker::Time.between_dates(from: Date.today - 30, to: Date.today, period: :night)
+    clock_out_time = clock_in_time + rand(2..8).hours
+
+    ClockIn.create!(
+      user: user,
+      clock_in_time: clock_in_time,
+      clock_out_time: clock_out_time
+    )
   end
 end

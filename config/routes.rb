@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   get '/users/:id/followers' => 'users#followers'
   get '/users/:id/following' => 'users#following'
+
+  post '/users/:id/clock-in' => 'users#clock_in'
+  post '/users/:id/clock-out' => 'users#clock_out'
 end

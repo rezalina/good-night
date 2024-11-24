@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  
+  post '/users/:id/follow' => 'relationships#follow'
+  post '/users/:id/unfollow' => 'relationships#unfollow'
 end

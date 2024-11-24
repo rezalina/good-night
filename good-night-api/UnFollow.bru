@@ -1,0 +1,17 @@
+meta {
+  name: UnFollow
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/users/1/unfollow
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "followed_id": 2
+  }
+}

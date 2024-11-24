@@ -11,9 +11,8 @@ class UsersController < ApplicationController
 
   def clock_in
     @current_user.clock_ins.create(clock_in_time: Time.current)
-    @clock_ins = @current_user.clock_ins.order(:created_at)
 
-    render json: { data: @clock_ins, message: "Clock-in success"}, status: :ok
+    render json: { message: "Clock-in success"}, status: :ok
   end
 
   def clock_out

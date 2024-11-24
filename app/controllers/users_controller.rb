@@ -31,6 +31,21 @@ class UsersController < ApplicationController
     render json: { message: msg}, status: status.to_sym
   end
 
+  def sleep_records
+    sql = "select c.clock_in_time, c.clock_out_time, EXTRACT(HOUR FROM (c.clock_out_time - c.clock_in_time)) as duration FROM clock_ins c join users u on u.id = c.user_id where c.user_id = #{@current_user.id} order by duration ASC"
+    @sleep_records = ActiveRecord::Base.connection.execute(sql)
+    
+    render json: @sleep_records, status: :ok
+  end
+
+  def following_sleep_records
+    following_ids = @current_user.following.pluck(:id).join(",")
+    sql = "select u.name, c.clock_in_time, c.clock_out_time, EXTRACT(HOUR FROM (c.clock_out_time - c.clock_in_time)) as duration FROM clock_ins c join users u on u.id = c.user_id where c.user_id in (#{following_ids}) order by duration ASC"
+    @sleep_records = ActiveRecord::Base.connection.execute(sql)
+    
+    render json: @sleep_records, status: :ok
+  end
+
   def get_user
     @current_user = User.find_by(id: params[:id])
     render json: { error: "User Not Found" }, status: :unauthorized if @current_user.blank?

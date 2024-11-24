@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 
   post '/users/:id/clock-in' => 'users#clock_in'
   post '/users/:id/clock-out' => 'users#clock_out'
+
+  get '/users/:id/sleep-records' => 'users#sleep_records'
+  get '/users/:id/following-sleep-records' => 'users#following_sleep_records'
 end
